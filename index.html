@@ -1,118 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="">
+  <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>留言板</title>
-    <style>
-        .container {
-            margin: auto;
-            width: 80vw;
-            height: 90vh;
-            border: 1px solid gray;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 20px;
-        }
-
-        #message-list {
-            margin: auto;
-            width: 80%;
-            height: auto;
-            border: 1px solid gray;
-            /* border-radius: 20px; */
-            margin: 50px;
-            padding: 20px;
-            overflow-y: auto;
-
-        }
-
-        #message-list li {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            /* 將內容和刪除按鈕分開 */
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            /* 添加分隔線 */
-        }
-
-        #message-list li button {
-            /* 刪除按鈕樣式 */
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>留言板</h1>
-        <div class="input-group">
-            <input type="text" id="message">
-            <button onclick="addMessage()">送出</button>
-        </div>
-        <div id="message-list">
-        </div>
-    </div>
-
-    <script>
-        const messageInput = document.getElementById('message');
-        const messageList = document.getElementById('message-list');
-
-        // 從本地儲存讀取留言，並添加到頁面上
-        let messages = JSON.parse(localStorage.getItem('messages')) || [];
-        messages.forEach(message => {
-            addMessageElement(message);
-        });
-
-        function addMessage() {
-            const message = messageInput.value;
-            if (!message) return;
-
-            messages.push(message);
-            localStorage.setItem('messages', JSON.stringify(messages));
-            addMessageElement(message);
-            messageInput.value = '';
-        }
-
-        function addMessageElement(message) {
-            const li = document.createElement('li');
-            li.textContent = message;
-
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '刪除';
-            deleteButton.onclick = deleteMessage; // 提取事件處理函數
-            li.appendChild(deleteButton);
-
-            messageList.appendChild(li);
-        }
-        function addMessageElement(message) {
-            const li = document.createElement('li');
-            li.textContent = message;
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '刪除';
-            deleteButton.onclick = () => {
-
-                // 刪除留言的邏輯
-                const index = messages.indexOf(message);
-                messages.splice(index, 1);
-                localStorage.setItem('messages', JSON.stringify(messages));
-                li.remove();
-            };
-            li.appendChild(deleteButton);
-            messageList.appendChild(li);
-        }
-        function deleteMessage(event) {
-            const li = event.target.parentNode;
-            const index = [...messageList.children].indexOf(li);
-            // ... 刪除邏輯
-        }
-    </script>
-</body>
-
+    <title>Vite App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
